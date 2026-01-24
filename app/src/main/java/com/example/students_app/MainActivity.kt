@@ -1,5 +1,6 @@
 package com.example.students_app
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,24 +15,35 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.students_app.ui.theme.Students_appTheme
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : ComponentActivity() {
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var fab: FloatingActionButton
+    private lateinit var topBar: MaterialToolbar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewStudents)
-        val fab = findViewById<FloatingActionButton>(R.id.fabAddStudent)
+        topBar = findViewById<MaterialToolbar>(R.id.topAppBar)
+        topBar.title = "Student List"
+
+        recyclerView = findViewById<RecyclerView>(R.id.recyclerViewStudents)
+        fab = findViewById<FloatingActionButton>(R.id.fabAddStudent)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        StudentRepository.add(Student("", "Student 1", 1))
-        StudentRepository.add(Student("", "Student 2", id=2))
-        StudentRepository.add(Student("", "Student 3", id=3))
         recyclerView.adapter = StudentAdapter(StudentRepository.getAll())
 
         fab.setOnClickListener {
-            // open add-student dialog or activity
+            startActivity(Intent(this, AddStudentActivity::class.java))
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // refresh list in case a new student was added
+        recyclerView.adapter = StudentAdapter(StudentRepository.getAll())
     }
 }
