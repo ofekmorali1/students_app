@@ -16,7 +16,9 @@ class AddStudentActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_student)
         topBar = findViewById<MaterialToolbar>(R.id.topAppBar)
         topBar.title = "Add Student"
-
+        topBar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
         val editName = findViewById<EditText>(R.id.editTextName)
         val editId = findViewById<EditText>(R.id.editTextId)
         val editPhone = findViewById<EditText>(R.id.editTextPhone)

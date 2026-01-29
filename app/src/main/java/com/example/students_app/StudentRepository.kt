@@ -7,13 +7,14 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class Student (val picturePath: String, val name: String, val id: String, val phone: String, val address: String)  {
+class Student (val picturePath: String, var name: String, var id: String, var phone: String, var address: String)  {
     var check: Boolean = false
 
     fun setCheck() {
         check = !check
     }
 }
+
 object StudentRepository {
     private val students = mutableListOf<Student>()
 
@@ -30,10 +31,32 @@ object StudentRepository {
         return students.find { it.id == id }
     }
 
+    fun updateStudent(student: Student, newName: String, newId: String, newPhone: String, newAddress: String, newCheck: Boolean): Boolean {
+        if (students.any { it.id == newId && it != student }) {
+            return false
+        }
+
+        student.name = newName
+        student.id = newId
+        student.phone = newPhone
+        student.address = newAddress
+        student.check = newCheck
+
+        return true
+    }
+
+    fun delete(studentId: String) {
+        val studentToDelete = students.find { it.id == studentId }
+        if (studentToDelete != null) {
+            students.remove(studentToDelete)
+        }
+    }
+
 }
 
 class StudentAdapter(
-    private val students: List<Student>
+    private val students: List<Student>,
+    private val onStudentClick: (Student) -> Unit
 ) : RecyclerView.Adapter<StudentAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -51,11 +74,16 @@ class StudentAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val student = students[position]
         holder.name.text = student.name
-        holder.id.text = student.id.toString()
+        holder.id.text = student.id
         holder.check.isChecked = student.check
+
         holder.check.setOnClickListener {
             student.setCheck()
             holder.check.isChecked = student.check
+        }
+
+        holder.itemView.setOnClickListener {
+            onStudentClick(student)
         }
     }
 
