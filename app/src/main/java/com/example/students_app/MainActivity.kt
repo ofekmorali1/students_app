@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
 
         topBar = findViewById<MaterialToolbar>(R.id.topAppBar)
         topBar.title = "Student List"
-
+        topBar.navigationIcon = null // Don't include back on main page
         recyclerView = findViewById<RecyclerView>(R.id.recyclerViewStudents)
         fab = findViewById<FloatingActionButton>(R.id.fabAddStudent)
 

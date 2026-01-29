@@ -27,6 +27,16 @@
             android:exported="false"
             android:label="Add Student"
             android:theme="@style/Theme.Students_app" />
+        <activity
+            android:name=".StudentDetailsActivity"
+            android:exported="false"
+            android:label="Student Details"
+            android:theme="@style/Theme.Students_app" />
+        <activity
+            android:name=".EditStudentDetailsActivity"
+            android:exported="false"
+            android:label="Edit Student"
+            android:theme="@style/Theme.Students_app" />
     </application>
 
 </manifest>
