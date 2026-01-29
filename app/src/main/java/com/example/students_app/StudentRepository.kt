@@ -6,12 +6,11 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlin.toString
 
-class Student (val picturePath: String, val name: String, val id: Int)  {
+class Student (val picturePath: String, val name: String, val id: String, val phone: String, val address: String)  {
     var check: Boolean = false
 
-    fun check() {
+    fun setCheck() {
         check = !check
     }
 }
@@ -27,7 +26,7 @@ object StudentRepository {
     fun getAll(): List<Student> {
         return students
     }
-    fun getById(id: Int): Student? {
+    fun getById(id: String): Student? {
         return students.find { it.id == id }
     }
 
@@ -53,8 +52,9 @@ class StudentAdapter(
         val student = students[position]
         holder.name.text = student.name
         holder.id.text = student.id.toString()
+        holder.check.isChecked = student.check
         holder.check.setOnClickListener {
-            student.check()
+            student.setCheck()
             holder.check.isChecked = student.check
         }
     }

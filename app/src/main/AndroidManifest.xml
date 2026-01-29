@@ -22,6 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AddStudentActivity"
+            android:exported="false"
+            android:label="Add Student"
+            android:theme="@style/Theme.Students_app" />
     </application>
 
 </manifest>

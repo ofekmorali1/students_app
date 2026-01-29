@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <!-- Reusable top bar included here -->
     <include
         layout="@layout/top_bar" />
 
