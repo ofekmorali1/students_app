@@ -20,7 +20,9 @@ class StudentDetailsActivity : AppCompatActivity() {
 
         topBar = findViewById<MaterialToolbar>(R.id.topAppBar)
         topBar.title = "Student Details"
-
+        topBar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
         val studentId = intent.getStringExtra("student_id")
         if (studentId == null) {
             Toast.makeText(this, "Student not found -1 ", Toast.LENGTH_SHORT).show()
