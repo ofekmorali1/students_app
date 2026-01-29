@@ -7,7 +7,7 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class Student (val picturePath: String, val name: String, val id: String, val phone: String, val address: String)  {
+class Student (val picturePath: String, var name: String, var id: String, var phone: String, var address: String)  {
     var check: Boolean = false
 
     fun setCheck() {
@@ -29,6 +29,27 @@ object StudentRepository {
     }
     fun getById(id: String): Student? {
         return students.find { it.id == id }
+    }
+
+    fun updateStudent(student: Student, newName: String, newId: String, newPhone: String, newAddress: String, newCheck: Boolean): Boolean {
+        if (students.any { it.id == newId && it != student }) {
+            return false
+        }
+
+        student.name = newName
+        student.id = newId
+        student.phone = newPhone
+        student.address = newAddress
+        student.check = newCheck
+
+        return true
+    }
+
+    fun delete(studentId: String) {
+        val studentToDelete = students.find { it.id == studentId }
+        if (studentToDelete != null) {
+            students.remove(studentToDelete)
+        }
     }
 
 }

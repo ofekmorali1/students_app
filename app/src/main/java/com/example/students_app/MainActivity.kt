@@ -12,6 +12,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var fab: FloatingActionButton
     private lateinit var topBar: MaterialToolbar
+    private lateinit var adapter: StudentAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,12 +25,13 @@ class MainActivity : ComponentActivity() {
         fab = findViewById<FloatingActionButton>(R.id.fabAddStudent)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = StudentAdapter(StudentRepository.getAll()) { student ->
+        adapter = StudentAdapter(StudentRepository.getAll()) { student ->
             val intent = Intent(this, StudentDetailsActivity::class.java)
             intent.putExtra("student_id", student.id)
             startActivity(intent)
         }
 
+        recyclerView.adapter = adapter
         fab.setOnClickListener {
             startActivity(Intent(this, AddStudentActivity::class.java))
         }
@@ -37,10 +39,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
-        recyclerView.adapter = StudentAdapter(StudentRepository.getAll()){ student ->
-            val intent = Intent(this, StudentDetailsActivity::class.java)
-            intent.putExtra("student_id", student.id)
-            startActivity(intent)
-        }
+        adapter.notifyDataSetChanged()
     }
 }

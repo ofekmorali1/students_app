@@ -32,8 +32,8 @@
                 android:text="Name"
                 android:paddingTop="4dp" />
 
-            <TextView
-                android:id="@+id/textViewName"
+            <EditText
+                android:id="@+id/editStudentName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -43,8 +43,8 @@
                 android:text="ID"
                 android:paddingTop="8dp" />
 
-            <TextView
-                android:id="@+id/textViewId"
+            <EditText
+                android:id="@+id/editStudentId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -54,8 +54,8 @@
                 android:text="Phone"
                 android:paddingTop="8dp" />
 
-            <TextView
-                android:id="@+id/textViewPhone"
+            <EditText
+                android:id="@+id/editStudentPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -65,8 +65,8 @@
                 android:text="Address"
                 android:paddingTop="8dp" />
 
-            <TextView
-                android:id="@+id/textViewAddress"
+            <EditText
+                android:id="@+id/editStudentAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -74,8 +74,8 @@
                 android:id="@+id/checkboxChecked"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="checked"
-                android:paddingTop="12dp" />
+                android:paddingTop="12dp"
+                android:text="checked"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -85,11 +85,33 @@
                 android:layout_marginTop="24dp">
 
                 <Button
-                    android:id="@+id/buttonEdit"
-                    android:text="Edit Student"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:id="@+id/buttonCancel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="CANCEL" />
 
+                <Space
+                    android:layout_width="16dp"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/buttonDelete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Delete" />
+
+                <Space
+                    android:layout_width="16dp"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/buttonSave"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="SAVE" />
 
             </LinearLayout>
         </LinearLayout>

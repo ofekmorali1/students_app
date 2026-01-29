@@ -12,6 +12,7 @@ import com.google.android.material.appbar.MaterialToolbar
 class StudentDetailsActivity : AppCompatActivity() {
 
     private lateinit var topBar: MaterialToolbar
+    private lateinit var student: Student
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -27,7 +28,7 @@ class StudentDetailsActivity : AppCompatActivity() {
             finish()
             return
         }
-        val student = StudentRepository.getById(studentId)
+        student = StudentRepository.getById(studentId)!!
         if (student == null) {
             Toast.makeText(this, "Student not found - 2", Toast.LENGTH_SHORT).show()
             finish()
@@ -46,6 +47,7 @@ class StudentDetailsActivity : AppCompatActivity() {
         phoneTextView.text = student.phone
         addressTextView.text = student.address
         checkedCheckBox.isChecked = student.check
+        checkedCheckBox.isEnabled = false
 
 
         editButton.setOnClickListener {
@@ -56,4 +58,16 @@ class StudentDetailsActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        populateStudentDetails()
+    }
+
+    private fun populateStudentDetails() {
+        findViewById<TextView>(R.id.textViewName).text = student.name
+        findViewById<TextView>(R.id.textViewId).text = student.id
+        findViewById<TextView>(R.id.textViewPhone).text = student.phone
+        findViewById<TextView>(R.id.textViewAddress).text = student.address
+        findViewById<CheckBox>(R.id.checkboxChecked).isChecked = student.check
+    }
 }
