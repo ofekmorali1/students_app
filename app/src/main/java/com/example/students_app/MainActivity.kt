@@ -3,18 +3,8 @@ package com.example.students_app
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.students_app.ui.theme.Students_appTheme
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -34,7 +24,11 @@ class MainActivity : ComponentActivity() {
         fab = findViewById<FloatingActionButton>(R.id.fabAddStudent)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = StudentAdapter(StudentRepository.getAll())
+        recyclerView.adapter = StudentAdapter(StudentRepository.getAll()) { student ->
+            val intent = Intent(this, StudentDetailsActivity::class.java)
+            intent.putExtra("student_id", student.id)
+            startActivity(intent)
+        }
 
         fab.setOnClickListener {
             startActivity(Intent(this, AddStudentActivity::class.java))
@@ -43,7 +37,10 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
-        // refresh list in case a new student was added
-        recyclerView.adapter = StudentAdapter(StudentRepository.getAll())
+        recyclerView.adapter = StudentAdapter(StudentRepository.getAll()){ student ->
+            val intent = Intent(this, StudentDetailsActivity::class.java)
+            intent.putExtra("student_id", student.id)
+            startActivity(intent)
+        }
     }
 }

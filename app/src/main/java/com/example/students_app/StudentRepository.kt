@@ -14,6 +14,7 @@ class Student (val picturePath: String, val name: String, val id: String, val ph
         check = !check
     }
 }
+
 object StudentRepository {
     private val students = mutableListOf<Student>()
 
@@ -33,7 +34,8 @@ object StudentRepository {
 }
 
 class StudentAdapter(
-    private val students: List<Student>
+    private val students: List<Student>,
+    private val onStudentClick: (Student) -> Unit
 ) : RecyclerView.Adapter<StudentAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -51,11 +53,16 @@ class StudentAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val student = students[position]
         holder.name.text = student.name
-        holder.id.text = student.id.toString()
+        holder.id.text = student.id
         holder.check.isChecked = student.check
+
         holder.check.setOnClickListener {
             student.setCheck()
             holder.check.isChecked = student.check
+        }
+
+        holder.itemView.setOnClickListener {
+            onStudentClick(student)
         }
     }
 
