@@ -18,7 +18,9 @@ class EditStudentDetailsActivity : AppCompatActivity() {
 
         topBar = findViewById(R.id.topAppBar)
         topBar.title = "Edit Student"
-
+        topBar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
         val studentId = intent.getStringExtra("student_id")
         if (studentId == null) {
             Toast.makeText(this, "Student not found", Toast.LENGTH_SHORT).show()
